@@ -4,6 +4,7 @@ const cors = require('cors')
 class Server{
     constructor(){
         this.app = express()
+        this.basicPathGroup = '/api/basic'
         this.userPathGroup = '/api/users'
 
         // Middlewares
@@ -20,6 +21,7 @@ class Server{
     }
 
     routes(){
+        this.app.use(this.basicPathGroup, require('../routes/basic'))
         this.app.use(this.userPathGroup, require('../routes/user'))
     }
 
