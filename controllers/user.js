@@ -10,7 +10,6 @@ const userGet = (req = request, res = response) => {
 }
 const userPost = async (req = request, res = response) => {
     
-
     const {email, password, role} = req.body
     const user = new User({email, password, role})
 
