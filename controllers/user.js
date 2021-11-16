@@ -13,13 +13,6 @@ const userPost = async (req = request, res = response) => {
     const {email, password, role} = req.body
     const user = new User({email, password, role})
 
-    const alreadyExist = await User.findOne({email})
-    if(alreadyExist){
-        return res.status(400).json({
-            error: 'The email already exists'
-        })
-    }
-
     // Encrypt password
     const salt = bcrypt.genSaltSync()
     user.password = bcrypt.hashSync(password, salt)
