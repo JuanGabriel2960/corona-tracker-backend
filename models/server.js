@@ -7,6 +7,7 @@ class Server{
     constructor(){
         this.app = express()
         this.basicPathGroup = '/api/basic'
+        this.authPathGroup = '/api/auth'
         this.userPathGroup = '/api/users'
 
         // Connect to database
@@ -31,6 +32,7 @@ class Server{
 
     routes(){
         this.app.use(this.basicPathGroup, require('../routes/basic'))
+        this.app.use(this.authPathGroup, require('../routes/auth'))
         this.app.use(this.userPathGroup, require('../routes/user'))
     }
 

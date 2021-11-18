@@ -1,7 +1,6 @@
 const { request, response } = require('express');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
-const { validate } = require('../models/user');
 
 const userGet = (req = request, res = response) => {
     res.json({
