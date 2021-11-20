@@ -58,7 +58,19 @@ const register = async(req = request, res = response) => {
     }
 }
 
+const renewToken= async(req, res)=>{
+    const authenticatedUser = req.user
+    const token = await generateJWT(authenticatedUser._id)
+
+    res.json({
+        msg: 'renew token',
+        token,
+        authenticatedUser
+    })
+}
+
 module.exports = {
     login,
-    register
+    register,
+    renewToken
 }
