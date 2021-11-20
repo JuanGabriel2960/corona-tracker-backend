@@ -24,9 +24,13 @@ const userPut = async(req = request, res = response) => {
         user
     })
 }
-const userDelete = (req = request, res = response) => {
+const userDelete = async(req = request, res = response) => {
+    const { id } = req.params
+    const user = await User.findByIdAndDelete(id)
+    
     res.json({
-        msg: 'delete user API'
+        msg: 'Deleted user',
+        id
     })
 }
 

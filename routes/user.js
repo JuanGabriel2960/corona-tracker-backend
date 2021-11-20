@@ -8,7 +8,8 @@ const router = Router()
 
 router.get('/', userGet)
 
-router.put('/:id', [
+router.put('/:id', 
+[
     check('id', 'The ID is not valid.').isMongoId(),
     check('id').custom(validateID),
     check('role').custom(validateRole),
@@ -16,6 +17,12 @@ router.put('/:id', [
 ],
 userPut)
 
-router.delete('/', userDelete)
+router.delete('/:id', 
+[
+    check('id', 'The ID is not valid.').isMongoId(),
+    check('id').custom(validateID),
+    validateFields
+],
+userDelete)
 
 module.exports = router;
