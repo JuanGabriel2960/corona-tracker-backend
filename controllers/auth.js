@@ -34,10 +34,28 @@ const login = async(req = request, res = response) => {
     }
 }
 
-const register = (req = request, res = response) => {
-    res.json({
-        msg: 'post Register'
-    })
+const register = async(req = request, res = response) => {
+    const {email, password, role} = req.body
+    const user = new User({email, password, role})
+
+    try{
+        // Encrypt password
+        const salt = bcryptjs.genSaltSync()
+        user.password = bcryptjs.hashSync(password, salt)
+
+        await user.save()
+
+        const token = await generateJWT(user._id)
+
+        res.json({
+            user,
+            token
+        })
+    }catch(error){
+        return res.status(500).json({
+            error: 'Internal Server Error.'
+        })
+    }
 }
 
 module.exports = {
