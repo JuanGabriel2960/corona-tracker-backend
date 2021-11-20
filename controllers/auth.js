@@ -10,14 +10,14 @@ const login = async(req = request, res = response) => {
         const user = await User.findOne({email})
         if(!user){
             return res.status(401).json({
-                error: 'Incorrect email or password.'
+                msg: 'Incorrect email or password.'
             })
         }
 
         const checkPassword = bcryptjs.compareSync(password, user.password)
         if(!checkPassword){
             return res.status(401).json({
-                error: 'Incorrect email or password.'
+                msg: 'Incorrect email or password.'
             })
         }
 
@@ -29,7 +29,7 @@ const login = async(req = request, res = response) => {
         })
     }catch(error){
         return res.status(500).json({
-            error: 'Internal Server Error.'
+            msg: 'Internal Server Error.'
         })
     }
 }
@@ -53,7 +53,7 @@ const register = async(req = request, res = response) => {
         })
     }catch(error){
         return res.status(500).json({
-            error: 'Internal Server Error.'
+            msg: 'Internal Server Error.'
         })
     }
 }
