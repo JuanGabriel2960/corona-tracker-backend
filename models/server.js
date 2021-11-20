@@ -1,17 +1,27 @@
 const express = require('express')
 const cors = require('cors')
 
+const { dbConnection } = require('../database/config')
+
 class Server{
     constructor(){
         this.app = express()
         this.basicPathGroup = '/api/basic'
-        this.userPathGroup = '/api/users'
+        this.authPathGroup = '/api/auth'
+        this.userPathGroup = '/api/user'
+
+        // Connect to database
+        this.connectDB()
 
         // Middlewares
         this.middlewares()
 
         // Routes
         this.routes()
+    }
+
+    async connectDB(){
+        await dbConnection()
     }
 
     middlewares(){
@@ -22,6 +32,7 @@ class Server{
 
     routes(){
         this.app.use(this.basicPathGroup, require('../routes/basic'))
+        this.app.use(this.authPathGroup, require('../routes/auth'))
         this.app.use(this.userPathGroup, require('../routes/user'))
     }
 
