@@ -8,7 +8,7 @@ class Server{
         this.app = express()
         this.basicPathGroup = '/api/basic'
         this.authPathGroup = '/api/auth'
-        this.userPathGroup = '/api/users'
+        this.userPathGroup = '/api/user'
 
         // Connect to database
         this.connectDB()
