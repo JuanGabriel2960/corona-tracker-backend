@@ -45,7 +45,7 @@ const userDelete = async(req = request, res = response) => {
 
         if(authenticatedUser.id !== user.id){
             return res.status(401).json({
-                msg: 'Wrong credential mi pana.'
+                msg: 'Wrong credentials.'
             })
         }
 

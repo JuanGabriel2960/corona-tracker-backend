@@ -17,7 +17,7 @@ const validateJWT = async(req = request, res = response, next) =>{
 
         if(!user){
             res.status(401).json({
-                msg: 'The token is not valid id.'
+                msg: 'The token is not valid.'
             })
         }
 
