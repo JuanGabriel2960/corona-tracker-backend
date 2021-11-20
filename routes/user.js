@@ -11,6 +11,7 @@ router.get('/', userGet)
 
 router.put('/:id', 
 [
+    validateJWT,
     check('id', 'The ID is not valid.').isMongoId(),
     check('id').custom(validateID),
     check('role').custom(validateRole),

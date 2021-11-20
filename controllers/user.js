@@ -9,20 +9,41 @@ const userGet = (req = request, res = response) => {
 }
 const userPut = async(req = request, res = response) => {
     const { id } = req.params
-    const { email, password, _id, ...rest } = req.body
-
-    // NOTE: validate in database
-    if(password){
-        const salt = bcryptjs.genSaltSync()
-        rest.password = bcryptjs.hashSync(password, salt)
-    }
+    const { email, _id, ...rest } = req.body
+    const authenticatedUser = req.user
  
-    const user = await User.findByIdAndUpdate(id, rest)
+    try{
+        const user = await User.findById(id)
 
-    res.json({
-        msg: 'Updated data',
-        user
-    })
+        const checkPassword = bcryptjs.compareSync(rest.password, user.password)
+        if(!checkPassword){
+            return res.status(401).json({
+                msg: 'Wrong credentials.'
+            })
+        }
+
+        const salt = bcryptjs.genSaltSync()
+        rest.password = bcryptjs.hashSync(rest.newpassword, salt)
+
+        // NOTE: move to helpers
+        if(authenticatedUser.id !== user.id){
+            return res.status(401).json({
+                msg: 'Wrong credentials.'
+            })
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(id, rest)
+
+        res.json({
+            msg: 'Updated user.',
+            updatedUser
+
+        })
+    }catch(error){
+        return res.status(500).json({
+            msg: 'Internal Server Error.'
+        })
+    }
 }
 const userDelete = async(req = request, res = response) => {
     const {email, password} = req.body   
