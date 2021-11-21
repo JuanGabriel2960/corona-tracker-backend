@@ -18,3 +18,6 @@ jobs:
         env:
           HD_DB_CONNECTION: ${{secrets.DB_CONNECTION}}
           HD_SECRET_KEY: ${{secrets.SECRET_KEY}}
+          HD_COVID_API_URL: ${{secrets.COVID_API_URL}}
+          HD_X_RAPIDAPI_HOST: ${{secrets.X_RAPIDAPI_HOST}}
+          HD_X_RAPIDAPI_KEY: ${{secrets.X_RAPIDAPI_KEY}}
