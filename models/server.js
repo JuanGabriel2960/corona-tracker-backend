@@ -9,6 +9,7 @@ class Server{
         this.basicPathGroup = '/api/basic'
         this.authPathGroup = '/api/auth'
         this.userPathGroup = '/api/user'
+        this.countryPathGroup = '/api/country'
 
         // Connect to database
         this.connectDB()
@@ -34,6 +35,7 @@ class Server{
         this.app.use(this.basicPathGroup, require('../routes/basic'))
         this.app.use(this.authPathGroup, require('../routes/auth'))
         this.app.use(this.userPathGroup, require('../routes/user'))
+        this.app.use(this.countryPathGroup, require('../routes/country'))
     }
 
     listen(){
