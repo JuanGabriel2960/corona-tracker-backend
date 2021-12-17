@@ -1,5 +1,5 @@
 const { request, response } = require('express');
-var axios = require("axios").default;
+const axios = require("axios").default;
 
 const getCountryInfo = (req = request, res = response) => {
     const { country } = req.params
@@ -17,7 +17,7 @@ const getCountryInfo = (req = request, res = response) => {
     axios.request(options).then(function (response) {
         if(response.data.length>0){
             res.json(
-                response.data
+                response.data[0]
             )
         }else{
             res.status(404).json({
